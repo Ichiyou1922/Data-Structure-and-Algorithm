@@ -25,6 +25,6 @@ int pop(Node **top);
 int peek(Node *top);
 
 // スタックを全て解放する
-void free_stack(Node *top);
+void free_stack(Node **top);
 
 #endif

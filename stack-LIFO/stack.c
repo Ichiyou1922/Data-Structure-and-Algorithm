@@ -37,14 +37,14 @@ bool push(Node **top, int data) {
   new_node->data = data;
 
   new_node->next = *top;
-  new_node = *top;
+  *top = new_node; // 代入の向きが逆だった．修正．new_nodeが参照されるべきところ．
   return true;
 }
 
 int pop(Node **top) {
   if (*top == NULL) {
     printf("Stack is empty...\n");
-    return 1;
+    return -1;
   }
   Node *temp = *top;
   int val = temp->data;
@@ -58,10 +58,18 @@ int peek(Node *top) {
     printf("Not exist the value...\n");
     return -1;
   }
-  printf("Top value is %d", top->data);
+  printf("Top value is %d\n", top->data);
   return 0;
 }
 
-void free_stack(Node *top) {
-  free(top);
+void free_stack(Node **top) {
+    Node *current = *top; // 現在位置記録
+    Node *temp_next; // 次の位置を仮に取っておく
+    
+    while (current != NULL) {
+      temp_next = current->next; //仮に取っておく
+      free(current); // 現在位置を解放
+      current = temp_next; // 現在位置を更新
+    }
+    *top = NULL;
 }
