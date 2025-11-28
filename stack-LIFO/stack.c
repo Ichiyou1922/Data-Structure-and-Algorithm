@@ -33,6 +33,9 @@ bool push(Node **top, int data) {
     printf("Something is wrong...\n");
     return false;
   }
+
+  new_node->data = data;
+
   new_node->next = *top;
   new_node = *top;
   return true;
@@ -50,15 +53,15 @@ int pop(Node **top) {
   return (val);
 }
 
-int peek(Node **top) {
-  if (*top == NULL) {
+int peek(Node *top) {
+  if (top == NULL) {
     printf("Not exist the value...\n");
     return -1;
   }
-  printf("Top value is %s", *top->data);
+  printf("Top value is %d", top->data);
   return 0;
 }
 
-void free_stack(Node **top) {
-  free(*top);
+void free_stack(Node *top) {
+  free(top);
 }
